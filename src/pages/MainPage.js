@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
+import UserContext from '../context/UserContext';
 
 import '../App.css';
 import Header from '../components/Header';
@@ -11,6 +12,7 @@ const MainPage = () => {
     const [goal, setGoal] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(true);
 
+
     const handleNameChange = (e) => {
         setName(e.target.value)
     }
@@ -21,6 +23,7 @@ const MainPage = () => {
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
+        
       }
 
     return (
@@ -38,10 +41,15 @@ const MainPage = () => {
                 <button onClick={toggleModal}>OK</button>
             </Modal>
 
-            <Header name={name}/>
-            <TrackerContainer name={name} goal={goal} />
+           
+            <UserContext.Provider value={{name, goal}}>
+                <Header />  
+                <TrackerContainer  />
+            </UserContext.Provider>
         </>
     )
 }
 
 export default MainPage;
+
+//name={name} goal={goal}
